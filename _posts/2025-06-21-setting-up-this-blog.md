@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Setting up this Blog
+title: Setting up this blog
 description: A quick walkthrough on how to setup this type of blog.
 date: 2025-06-21 22:36:47 -0400
 categories: [Blog]
