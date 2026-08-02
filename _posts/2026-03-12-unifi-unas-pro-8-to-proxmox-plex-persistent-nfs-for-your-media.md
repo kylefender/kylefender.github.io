@@ -101,7 +101,7 @@ My Proxmox setup is fairly simple with a single node, so you might need to do th
 2. Add the following line at the bottom, replacing the IP (of the NAS) and paths with yours. On a Windows machine, I can paste into the Shell using `Ctrl+Shift+v`. After the mount is in `fstab`, you will need to save and exit nano. To do that, you will press `Ctrl+x` to start to exit, `y` to save the changes, and `Enter` to finish.
 
     ```plaintext
-    mount 192.168.1.83:/var/nfs/shared/TVShows /mnt/unas-pro-8-tvshows nfs defaults 0 0
+    192.168.1.83:/var/nfs/shared/TVShows /mnt/unas-pro-8-tvshows nfs defaults 0 0
     ```
     {: .nolineno }
 
@@ -123,27 +123,26 @@ My Proxmox setup is fairly simple with a single node, so you might need to do th
 
 Now that the Proxmox host has the NFS share reliably mounted, you need to expose it to the Plex container as a bind mount.
 
-1. Look in your left-hand navigation bar for Proxmox to find your Plex container's ID (ex. `101`). It'll be the number in the name of the LXC.
+1. Look in your left-hand navigation bar in Proxmox to find your Plex container's ID (ex. `101`). It'll be the number in the name of the LXC.
 
     ![Proxmox Application List](Proxmox_Application_List.png)
     _Proxmox Application List_
 
-2. Select your Plex container, and click **Shell** in the menu.
-3. Edit the Plex LXC's config file.
+2. Still in the node's **Shell**, edit the Plex LXC's config file.
 
     ```bash
     nano /etc/pve/lxc/101.conf
     ```
     {: .nolineno }
 
-4. Add a `mp` (mount point) line at the bottom of the config. **NOTE:** This will be my second mount, so it is `mp1`, but if this is your first, it will be `mp0`. Also, the `mp` doesn't need to match the `mp#` if you want it to be mounted somewhere else in the container. You can change the container-side path to whatever makes sense for your Plex library setup.
+3. Add a `mp` (mount point) line at the bottom of the config. **NOTE:** This will be my second mount, so it is `mp1`, but if this is your first, it will be `mp0`. Also, the `mp` doesn't need to match the `mp#` if you want it to be mounted somewhere else in the container. You can change the container-side path to whatever makes sense for your Plex library setup.
 
     ```plaintext
     mp1: /mnt/unas-pro-8-tvshows,mp=/mnt/unas-pro-8-tvshows
     ```
     {: .nolineno }
 
-5. Restart the Plex container to apply the change. I usually do this in from the UI.
+4. Restart the Plex container to apply the change. I usually do this in from the UI.
 
 ## Step 5: Add the Library in Plex
 

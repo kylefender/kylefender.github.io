@@ -3,12 +3,20 @@
   "image": "mcr.microsoft.com/devcontainers/jekyll:2-bullseye",
   "onCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+  },
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
+        // Claude
+        "Anthropic.claude-code",
         // Liquid tags auto-complete
         "killalau.vscode-liquid-snippets",
         // Liquid syntax highlighting and formatting
